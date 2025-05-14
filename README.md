@@ -13,17 +13,17 @@ This project implements a real-time human detection and face recognition system 
 
 It combines:
 
-YOLOv4-Tiny for fast human detection.
+•    YOLOv4-Tiny for fast human detection.
 
-face_recognition library for identity matching.
+•    face_recognition library for identity matching.
 
-TensorRT for optimized inference.
+•    TensorRT for optimized inference.
 
-Pushover API for instant mobile notifications.
+•    Pushover API for instant mobile notifications.
 
-SQLite/Google Cloud Storage for logging and remote access.
+•    SQLite/Google Cloud Storage for logging and remote access.
 
-Ideal for security, surveillance, or smart home applications.
+•    Ideal for security, surveillance, or smart home applications.
 
 =========================================================================
 
@@ -31,29 +31,29 @@ Ideal for security, surveillance, or smart home applications.
 
 ### **Hardware:**
 
-NVIDIA Jetson Nano (4GB).
+1)    NVIDIA Jetson Nano (4GB).
 
-Raspberry PI CSI camera and/or Night camera
+2)    Raspberry PI CSI camera and/or Night camera
 
-An adapter with 10W output power for MAXN power mode (10W) to provide real-time performance (~20-25 FPS) on jetson.
+3)    An adapter with 10W output power for MAXN power mode (10W) to provide real-time performance (~20-25 FPS) on jetson.
 
-Active cooling (PWM fan) for thermal management.
+4)    Active cooling (PWM fan) for thermal management.
 
 =========================================================================
 
 ### **Software:**
 
-JetPack SDK (Ubuntu 18.04, CUDA, TensorRT, cuDNN, VisionWorks, GStreamer)
+1)    JetPack SDK (Ubuntu 18.04, CUDA, TensorRT, cuDNN, VisionWorks, GStreamer)
 
-Optimized YOLOv4-Tiny model (TensorRT FP16)
+2)    Optimized YOLOv4-Tiny model (TensorRT FP16)
 
-Face recognition using the face_recognition Python library
+3)    Face recognition using the face_recognition Python library
 
-Push notifications via the Pushover API
+4)    Push notifications via the Pushover API
 
 =========================================================================
 
-Python libabries used:
+### **Python libabries used:**
 
 | Library  | Version |
 | -------- | ------- |
@@ -61,7 +61,7 @@ Python libabries used:
 | onnx     | 1.9.0   |
 | pycuda   | 2020.1  |
 | tensorrt | 8.2.1.9 |
-| torch    | 1.8.0  |
+| torch    | 1.8.0   |
 
 
 =========================================================================
@@ -87,13 +87,13 @@ Python libabries used:
     $ pip3 install --upgrade pip
 
     
-  **Install PyTorch(1.8.0) for Jetson** (Pre-built wheels from NVIDIA)
+  **Install PyTorch(1.8.0) for Jetson:** (Pre-built wheels from NVIDIA)
   
     $ wget https://nvidia.box.com/shared/static/p57jwntv436lfrd78inwl7iml6p13fzh.whl -O torch-1.8.0-cp36-cp36m-linux_aarch64.whl
     
     $ pip3 install torch-1.8.0-cp36-cp36m-linux_aarch64.whl
 
-  **Install TorchVision(0.9.0)** (Version must match PyTorch!)
+  **Install TorchVision(0.9.0):** (Version must match PyTorch!)
 
   
     $ sudo apt install -y libjpeg-dev zlib1g-dev libpython3-dev libavcodec-dev libavformat-dev libswscale-dev
@@ -103,12 +103,12 @@ Python libabries used:
     $ pip3 install 'pillow<7.0.0'  # Required for compatibility
     
 
-  **Cloning tensorrt_demos**
+  **Cloning tensorrt_demos:**
 
   
     $ git clone https://github.com/jkjung-avt/tensorrt_demos.git
 
-  **Begin Installing**
+  **Begin Installing:**
 
   Go to yolo subdirectory inside tensorrt_demos
     
@@ -138,70 +138,70 @@ Python libabries used:
 
   ## **Next Steps**
   
-  In the the main folder (tensorrt_demos): **Delete trt_yolo.py**
+1.    In the the main folder (tensorrt_demos): **Delete trt_yolo.py**
 
-  Clone the provided trt_yolo.py in this project and place it tensorrt_demos main folder.
+2.    Clone the provided trt_yolo.py in this project and place it tensorrt_demos main folder.
 
-  **PushOver Installing Steps**
+  **PushOver Installing Steps:**
   
-  1.Sign up a new account in the pushover website.
+1.    Sign up a new account in the pushover website.
   
-  2.Get the **User Key** & **API Token**.
+2.    Get the **User Key** & **API Token**.
   
-  3.Install the application via appstore or playstore.
+3.    Install the application via appstore or playstore.
 
-  **Configure Environment Variables**:
+  **Configure Environment Variables:**
 
-  Add the 2 export function in the ~/.bashrc
+1.    Add the 2 export function in the ~/.bashrc
 
     $ gedit ~/.bashrc
   
-  export PUSHOVER_TOKEN="**your_api_token_here**"
+2.    export PUSHOVER_TOKEN="**your_api_token_here**"
   
-  export PUSHOVER_USER="**your_user_key_here**"
+3.    export PUSHOVER_USER="**your_user_key_here**"
 
-  **Recognition Steps**:
+  **Recognition Steps:**
 
-  1.Create a folder called **known_faces** in **tensorrt_demos**
-  
-  2.Add your images that are needed for recognition (eq. John.jpg)
-  
-  3.Make Sure the images are Resized to 416x416 or 1280x720
+1.    Create a folder called **known_faces** in **tensorrt_demos**
+      
+2.    Add your images that are needed for recognition (eq. John.jpg)
+      
+3.    Make Sure the images are Resized to 416x416 or 1280x720
 
 
-  **Execution Command** (Run the whole code):
+  **Execution Command:** (Run the whole code)
   
     $ python3 trt_yolo.py --gstr "nvarguscamerasrc sensor-id=1 ! video/x-raw(memory:NVMM), width=600, height=600, format=NV12, framerate=30/1 ! nvvidconv flip-method=2 ! video/x-raw, format=BGRx ! videoconvert ! video/x-raw, format=BGR ! appsink" --model yolov4-tiny-416
 
 
-  ## **📋Results**:
+  ## **📋Results:**
   
   
-  Detection Process Using day Camera:
+ ### Detection Process Using day Camera:
   
   ![image](https://github.com/user-attachments/assets/b07990ce-9106-4b24-8eeb-ff42b11fef53)
   
-  Detection Process Using night Camera:
+ ### Detection Process Using night Camera:
   
   ![image](https://github.com/user-attachments/assets/4b197d04-276e-4587-88f2-f605054d3d95)
   
   
-  Detection Process 25 meters away:
+ ### Detection Process 25 meters away:
   
   ![image](https://github.com/user-attachments/assets/795c26be-a5fb-444f-89f4-958f71c3837f)
 
   
-  Detection & Recognition Process for unkown person (His photo is not placed in the known_faces subdirectory):
+ ### Detection & Recognition Process for unkown person (His photo is not placed in the known_faces subdirectory):
   
   ![image](https://github.com/user-attachments/assets/a5fbf60c-fa04-4d98-85c1-6a0b337ce5f6)
   
 
-  Sampled Photo Placed in known_faces subdirectory called weam2.jpg:
+ ### Sampled Photo Placed in known_faces subdirectory called weam2.jpg:
   
   ![image](https://github.com/user-attachments/assets/af924460-7b0e-405a-9de1-31416918ad2d)
 
   
-  Detection & Recognition for known person:
+ ### Detection & Recognition for known person:
   
   ![image](https://github.com/user-attachments/assets/0a4cf651-574b-4c5b-b458-b96053c9beff)
 
